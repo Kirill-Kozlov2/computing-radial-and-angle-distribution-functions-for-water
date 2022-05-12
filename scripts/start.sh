@@ -35,3 +35,4 @@ do
 done
 
 rm scripts/script_temp.gnuplot
+rm log.lammps

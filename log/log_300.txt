@@ -19,8 +19,8 @@ Finding 1-2 1-3 1-4 neighbors ...
      1 = max # of 1-3 neighbors
      1 = max # of 1-4 neighbors
      2 = max # of special neighbors
-  special bonds CPU = 0.000 seconds
-  read_data CPU = 0.022 seconds
+  special bonds CPU = 0.001 seconds
+  read_data CPU = 0.020 seconds
 Finding 1-2 1-3 1-4 neighbors ...
   special bond factors lj:    1e-100   1e-100   1       
   special bond factors coul:  1e-100   1e-100   1       
@@ -67,22 +67,22 @@ Step Temp E_pair E_mol TotEng Press
      300    296.65013   -16589.155            0   -13937.267    547.40769 
      400    303.83087   -16625.022            0   -13908.942    237.95196 
      500    298.01132   -16716.972            0   -14052.915    231.12171 
-Loop time of 5.66523 on 8 procs for 500 steps with 4500 atoms
+Loop time of 5.62142 on 8 procs for 500 steps with 4500 atoms
 
-Performance: 15.251 ns/day, 1.574 hours/ns, 88.258 timesteps/s
+Performance: 15.370 ns/day, 1.562 hours/ns, 88.945 timesteps/s
 99.7% CPU use with 8 MPI tasks x no OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 3.0491     | 3.3013     | 3.6703     |  10.1 | 58.27
-Bond    | 0.00027964 | 0.00035858 | 0.00055903 |   0.0 |  0.01
-Kspace  | 1.203      | 1.567      | 1.8173     |  14.5 | 27.66
-Neigh   | 0.48011    | 0.48033    | 0.48051    |   0.0 |  8.48
-Comm    | 0.14766    | 0.15203    | 0.15572    |   0.6 |  2.68
-Output  | 0.00013204 | 0.00013525 | 0.00015461 |   0.0 |  0.00
-Modify  | 0.14539    | 0.14699    | 0.14862    |   0.4 |  2.59
-Other   |            | 0.01701    |            |       |  0.30
+Pair    | 3.0423     | 3.2879     | 3.6287     |  10.2 | 58.49
+Bond    | 0.00028067 | 0.00037615 | 0.00049205 |   0.0 |  0.01
+Kspace  | 1.1999     | 1.5359     | 1.7796     |  14.8 | 27.32
+Neigh   | 0.47871    | 0.47901    | 0.47917    |   0.0 |  8.52
+Comm    | 0.15101    | 0.15395    | 0.15618    |   0.4 |  2.74
+Output  | 0.00012496 | 0.00012828 | 0.00014645 |   0.0 |  0.00
+Modify  | 0.14655    | 0.14757    | 0.14862    |   0.2 |  2.63
+Other   |            | 0.01658    |            |       |  0.29
 
 Nlocal:        562.500 ave         577 max         555 min
 Histogram: 3 1 1 0 1 0 0 1 0 1
@@ -144,22 +144,22 @@ Step Temp E_pair E_mol TotEng Press
      800    291.65432   -16502.539            0    -13895.31    446.09338 
      900    299.81016   -16506.191            0   -13826.053   -127.96702 
     1000    302.68783   -16491.418            0   -13785.556   -298.81065 
-Loop time of 14.7399 on 8 procs for 1000 steps with 4500 atoms
+Loop time of 14.6652 on 8 procs for 1000 steps with 4500 atoms
 
-Performance: 11.723 ns/day, 2.047 hours/ns, 67.843 timesteps/s
+Performance: 11.783 ns/day, 2.037 hours/ns, 68.189 timesteps/s
 99.7% CPU use with 8 MPI tasks x no OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 6.2902     | 6.7273     | 7.4625     |  14.2 | 45.64
-Bond    | 0.00051974 | 0.00073241 | 0.0010082  |   0.0 |  0.00
-Kspace  | 2.4136     | 3.1423     | 3.5794     |  20.6 | 21.32
-Neigh   | 1.0362     | 1.0365     | 1.037      |   0.0 |  7.03
-Comm    | 0.29915    | 0.30436    | 0.3085     |   0.7 |  2.06
-Output  | 0.00032699 | 0.00046664 | 0.00048996 |   0.0 |  0.00
-Modify  | 3.489      | 3.4906     | 3.4922     |   0.1 | 23.68
-Other   |            | 0.0376     |            |       |  0.26
+Pair    | 6.2416     | 6.7206     | 7.4166     |  14.4 | 45.83
+Bond    | 0.00061559 | 0.00077951 | 0.00097735 |   0.0 |  0.01
+Kspace  | 2.4064     | 3.0924     | 3.5723     |  21.0 | 21.09
+Neigh   | 1.0375     | 1.0378     | 1.0381     |   0.0 |  7.08
+Comm    | 0.30661    | 0.31292    | 0.31648    |   0.5 |  2.13
+Output  | 0.00031858 | 0.00045439 | 0.00047569 |   0.0 |  0.00
+Modify  | 3.4631     | 3.4642     | 3.4654     |   0.1 | 23.62
+Other   |            | 0.03597    |            |       |  0.25
 
 Nlocal:        562.500 ave         595 max         540 min
 Histogram: 2 0 1 0 2 1 1 0 0 1
