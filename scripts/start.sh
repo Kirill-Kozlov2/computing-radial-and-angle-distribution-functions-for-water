@@ -12,7 +12,7 @@ TOKEN='5379883980:AAGu-k6ivUkr4dTEnw_0axUrppZJZvPUWAQ'
 CHATID='997576216'
 
 cd ~/computing-radial-and-angle-distribution-functions-for-water
-##crontab scripts/crontab.sh
+crontab scripts/crontab.sh
 
 mkdir -p log/
 mkdir -p data/
@@ -30,7 +30,8 @@ do
 	gnuplot scripts/script_temp.gnuplot
 
 	curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendPhoto -F chat_id=${CHATID} -F photo="@png/rdf_${temp}.png" -F caption="Temp: $temp finished"
-	echo "Temp: $temp finished"
 	curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendPhoto -F chat_id=${CHATID} -F photo="@png/adf_${temp}.png" -F caption="Temp: $temp finished" 
+	echo "Temp: $temp finished"
 done
 
+rm scripts/script_temp.gnuplot

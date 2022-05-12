@@ -16,7 +16,7 @@ set output "png/adf_YYYYTemp.png"
 
 
 set title "ADF for water. T = YYYYTemp K"
-set xlabel "R"
+set xlabel "Angle"
 set ylabel "ADF"
 set grid
 

@@ -1,4 +1,10 @@
 LAMMPS (29 Sep 2021 - Update 2)
+# Liquid water RDFs and ADFs (~12 O-O-O/atom, ~1 O-H...O/atom)
+
+units		real
+atom_style	full
+
+read_data	/home/common/studtscm18/computing-radial-and-angle-distribution-functions-for-water/in/data.spce
 Reading data file ...
   orthogonal box = (0.026450000 0.026450000 0.026410000) to (35.532800 35.532800 35.473600)
   2 by 2 by 2 MPI processor grid
@@ -21,6 +27,23 @@ Finding 1-2 1-3 1-4 neighbors ...
      2 = max # of special neighbors
   special bonds CPU = 0.000 seconds
   read_data CPU = 0.022 seconds
+
+pair_style      lj/cut/coul/long 12.0 12.0
+pair_coeff      * * 0.0     1.0
+pair_coeff      1 1 0.15535 3.166
+kspace_style	pppm 1.0e-6
+
+bond_style	harmonic
+angle_style	harmonic
+dihedral_style	none
+improper_style	none
+
+bond_coeff	1 1000.00 1.000
+angle_coeff	1 100.0 109.47
+
+# need to set bond/angle inclusion to > 0.0
+# so that intramolecular pairs are included in neighbor lists (required for second ADF)
+special_bonds   lj/coul 1.0e-100 1.0e-100 1.0
 Finding 1-2 1-3 1-4 neighbors ...
   special bond factors lj:    1e-100   1e-100   1       
   special bond factors coul:  1e-100   1e-100   1       
@@ -28,12 +51,23 @@ Finding 1-2 1-3 1-4 neighbors ...
      1 = max # of 1-3 neighbors
      2 = max # of special neighbors
   special bonds CPU = 0.000 seconds
-Finding SHAKE clusters ...
+
+neighbor        2.0 bin
+timestep        2.0
+neigh_modify    every 1 delay 2 check yes
+
+fix		1 all shake 0.0001 20 0 b 1 a 1
        0 = # of size 2 clusters
        0 = # of size 3 clusters
        0 = # of size 4 clusters
     1500 = # of frozen angles
   find clusters CPU = 0.000 seconds
+fix		2 all nvt temp 300 300 100.0
+
+velocity all create 300 6244325
+
+thermo 100
+run 500
 PPPM initialization ...
   using 12-bit tables for long-range coulomb (../kspace.cpp:340)
   G vector (1/distance) = 0.27965195
@@ -55,10 +89,6 @@ Neighbor list info ...
       pair build: half/bin/newton
       stencil: half/bin/3d
       bin: standard
-Setting up Verlet run ...
-  Unit style    : real
-  Current step  : 0
-  Time step     : 2
 Per MPI rank memory allocation (min/avg/max) = 10.73 | 11.06 | 11.11 Mbytes
 Step Temp E_pair E_mol TotEng Press 
        0          300   -16692.369            0   -14010.534   -112.83562 
@@ -96,6 +126,15 @@ Ave neighs/atom = 578.10156
 Ave special neighs/atom = 2.0000000
 Neighbor list builds = 45
 Dangerous builds = 0
+
+reset_timestep 0
+
+compute gofr all rdf 150  1 1  2 2  1 2  # O-O, H-H, O-H
+compute gofa all adf 100  1 1 1  2.0 3.5  2.0 3.5                            2 1 1  0.0 1.2  1.5 2.5   # O-O-O, O-H...O
+fix rdf all ave/time 100 10 1000 c_gofr[*] file /home/common/studtscm18/computing-radial-and-angle-distribution-functions-for-water/data/spce-rdf_300.dat mode vector
+fix adf all ave/time 10 100 1000 c_gofa[*] file /home/common/studtscm18/computing-radial-and-angle-distribution-functions-for-water/data/spce-adf_300.dat mode vector
+
+run 1000
 PPPM initialization ...
   using 12-bit tables for long-range coulomb (../kspace.cpp:340)
   G vector (1/distance) = 0.27965195
@@ -127,10 +166,6 @@ Neighbor list info ...
       pair build: full/bin
       stencil: full/bin/3d
       bin: standard
-Setting up Verlet run ...
-  Unit style    : real
-  Current step  : 0
-  Time step     : 2
 Per MPI rank memory allocation (min/avg/max) = 11.74 | 11.74 | 11.74 Mbytes
 Step Temp E_pair E_mol TotEng Press 
        0    298.01132   -16716.972            0   -14052.915    231.22818 
